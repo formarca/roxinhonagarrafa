@@ -204,6 +204,17 @@
             .faq summary { font-size: 17.5px; } .faq .r { padding-right: 0; font-size: 16px; }
             .rodape { grid-template-columns: 1fr 1fr; } .rodape > div:first-child { grid-column: 1 / -1; }
             .final .acoes, .final .acoes .btn { width: 100%; }
+            /* --- ajustes do celular: nada fica escondido atrás do cabeçalho fixo --- */
+            .nav { gap: 10px; padding: 12px 16px; }
+            .nav .logo { flex: none; } .nav .logo img { height: 36px; }
+            .nav .aqui { flex: 1 1 auto; min-width: 0; margin-left: 0; overflow: hidden; text-overflow: ellipsis; text-align: center; font-size: 11px; letter-spacing: .1em; }
+            .nav .btn.sm { flex: none; margin-left: auto; height: 40px; padding: 0 16px; font-size: 13px; }
+            .nav .aqui:empty + .btn.sm { margin-left: auto; }
+            .painel { padding: 84px 22px 80px; }
+            .painel .gf { width: min(46vw, 210px, calc((100svh - 410px) / 1.9)); }
+            #historia .palco { padding-top: 84px; }
+            .mascote { width: min(46vw, 210px, calc((100svh - 530px) / 1.25)); }
+            html { scroll-padding-top: 72px; } section, [id] { scroll-margin-top: 0; }
         }
     </style>
 </head>
@@ -450,7 +461,9 @@
             E.manch[2].style.transform = 'translate3d(' + (a * 120) + 'vw,0,0)';
             E.manch[1].style.transform = 'scale(' + (1 - a * .25) + ')'; E.manch[1].style.opacity = (1 - a).toFixed(3);
             nivelar(gh, .12 + ease(fx(p, .05, .55)) * .82);
-            var esc = m ? .9 + a * .25 - b * .3 : .82 + a * .4 - b * .1, tx = m ? 0 : b * vw * .2, ty = m ? -b * vh * .2 : 0;
+            var fim = .85, tyFim = -vh * .2;
+            if (m) { var altG = gh.offsetHeight || 340, livre = Math.max(150, vh - 71 - 24 - E.lado.offsetHeight - 74); fim = lim(livre / altG, .4, .85); tyFim = Math.min(0, 71 + 12 + livre / 2 - vh / 2); }
+            var esc = m ? .9 + a * .25 - b * (1.15 - fim) : .82 + a * .4 - b * .1, tx = m ? 0 : b * vw * .2, ty = m ? b * tyFim : 0;
             gh.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0) scale(' + esc.toFixed(3) + ') rotate(' + ((1 - a) * -10 + b * 6 + Math.sin(p * 9) * 1.5).toFixed(2) + 'deg)';
             E.lado.style.opacity = b.toFixed(3); E.lado.style.transform = (m ? '' : 'translateY(-50%) ') + 'translate3d(' + ((1 - b) * -40) + 'px,' + ((1 - b) * 20) + 'px,0)';
             /* 2. sabores */
